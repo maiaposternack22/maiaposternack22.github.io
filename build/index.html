@@ -9,10 +9,9 @@
   <meta name="author" content="Maia and Ryan">
   <meta content="text/html" http-equiv="Content-type" />
   <meta content="width=device-width, initial-scale=1" name="viewport" />
-  <script src="https://d3js.org/d3.v4.min.js"></script>
-  <script src="https://d3js.org/topojson.v2.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.15/lodash.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/tinycolor/1.4.1/tinycolor.js"></script>
+  <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+  <script type="text/javascript" src="dist/jquery.vmap.js"></script>
+  <script type="text/javascript" src="dist/maps/jquery.vmap.usa.js" charset="utf-8"></script>
 </head>
 
 <body>
@@ -157,6 +156,9 @@
             
             <li><a class="dropdown-item" href=micro40.html >Wisconsin</a></li>
             
+            
+            <li><a class="dropdown-item" href=micro41.html >TOTAL</a></li>
+            
         </ul>
       </li>
     </ul>
@@ -171,85 +173,106 @@
     <h2>This is our macro data </h2>
   </header>
 
-<style>
-
-path {
-       stroke: white;
-       stroke-width: .5px;
-       fill: black;
-   }
-
-   .state {
-     fill: ;
-     cursor: pointer;
-   }
-
-</style>
-<div class="home"></div>
+<div id="vmap" style="width: 600px; height: 400px;"></div>
 
 <script>
 
-const width = 900;
-const height = 600;
-const svg = d3.select("body").append("svg")
-    .attr("width", width)
-    .attr("height", height);
+let index = [
+  'Alabama',       'Alaska',
+  'Arizona',       'California',
+  'Colorado',      'Connecticut',
+  'Delaware',      'District of Columbia',
+  'Georgia',       'Illinois',
+  'Indiana',       'Iowa',
+  'Kansas',        'Kentucky',
+  'Louisiana',     'Maine',
+  'Maryland',      'Massachusetts',
+  'Michigan',      'Minnesota',
+  'Missouri',      'Nebraska',
+  'Nevada',        'New Hampshire',
+  'New Jersey',    'New Mexico',
+  'New York',      'North Carolina',
+  'Ohio',          'Oklahoma',
+  'Oregon',        'Pennsylvania',
+  'Rhode Island',  'South Carolina',
+  'Utah',          'Vermont',
+  'Virginia',      'Washington',
+  'West Virginia', 'Wisconsin',
+]
 
-const projection = d3.geoAlbersUsa()
-    .translate([width / 2, height / 2]) // translate to center of screen
-    .scale([1000]); // scale things down so see entire US
 
-const path = d3.geoPath().projection(projection);
+jQuery(document).ready(function() {
+  jQuery('#vmap').vectorMap({
+    backgroundColor: '#FFFFFF',
+    selectedColor: null,
+    color: '#a8a8a8',
+    map: 'usa_en',
+    borderWidth: 2,
+    borderColor: 'black',
+    hoverOpacity: .5,
+    onRegionClick: function(event, code, region){
+      for (let state of index){
+        if (region == state){
+          let link = "micro"+ (index.indexOf(region)+1)+".html"
+          window.location.href = link
 
-d3.json("https://gist.githubusercontent.com/Bradleykingz/3aa5206b6819a3c38b5d73cb814ed470/raw/a476b9098ba0244718b496697c5b350460d32f99/us-states.json", function(error, uState) {
-if (error) throw error;
-svg.selectAll('path')
-   .data(uState.features)
-   .enter()
-   .append('path')
-   .attr("d", path)
-   .attr('class', 'state')
+        }
+      }
+
+     },
+    colors: {
+      al: 'hsl(2,100%,' + (100 - Math.pow(document.getElementById("myTable").rows[1].cells[1].innerHTML.substring(5,7),2)/25) + '%' +")",
+      ak: 'hsl(2,100%,' + (100 - Math.pow(document.getElementById("myTable").rows[2].cells[1].innerHTML.substring(5,7),2)/25) + '%' +")",
+      az: 'hsl(2,100%,' + (100 - Math.pow(document.getElementById("myTable").rows[3].cells[1].innerHTML.substring(5,7),2)/25) + '%' +")",
+      ca: 'hsl(2,100%,' + (100 - Math.pow(document.getElementById("myTable").rows[4].cells[1].innerHTML.substring(5,7),2)/25) + '%' +")",
+      co: 'hsl(2,100%,' + (100 - Math.pow(document.getElementById("myTable").rows[5].cells[1].innerHTML.substring(5,7),2)/25) + '%' +")",
+      ct: 'hsl(2,100%,' + (100 - Math.pow(document.getElementById("myTable").rows[6].cells[1].innerHTML.substring(5,7),2)/25) + '%' +")",
+      de: 'hsl(2,100%,' + (100 - Math.pow(document.getElementById("myTable").rows[7].cells[1].innerHTML.substring(5,7),2)/25) + '%' +")",
+      dc: 'hsl(2,100%,' + (100 - Math.pow(document.getElementById("myTable").rows[8].cells[1].innerHTML.substring(5,7),2)/25) + '%' +")",
+      ga: 'hsl(2,100%,' + (100 - Math.pow(document.getElementById("myTable").rows[9].cells[1].innerHTML.substring(5,7),2)/25) + '%' +")",
+      il: 'hsl(2,100%,' + (100 - Math.pow(document.getElementById("myTable").rows[10].cells[1].innerHTML.substring(5,7),2)/25) + '%' +")",
+      in: 'hsl(2,100%,' + (100 - Math.pow(document.getElementById("myTable").rows[11].cells[1].innerHTML.substring(5,7),2)/25) + '%' +")",
+      ia: 'hsl(2,100%,' + (100 - Math.pow(document.getElementById("myTable").rows[12].cells[1].innerHTML.substring(5,7),2)/25) + '%' +")",
+      ks: 'hsl(2,100%,' + (100 - Math.pow(document.getElementById("myTable").rows[13].cells[1].innerHTML.substring(5,7),2)/25) + '%' +")",
+      ky: 'hsl(2,100%,' + (100 - Math.pow(document.getElementById("myTable").rows[14].cells[1].innerHTML.substring(5,7),2)/25) + '%' +")",
+      la: 'hsl(2,100%,' + (100 - Math.pow(document.getElementById("myTable").rows[15].cells[1].innerHTML.substring(5,7),2)/25) + '%' +")",
+      me: 'hsl(2,100%,' + (100 - Math.pow(document.getElementById("myTable").rows[16].cells[1].innerHTML.substring(5,7),2)/25) + '%' +")",
+      md: 'hsl(2,100%,' + (100 - Math.pow(document.getElementById("myTable").rows[17].cells[1].innerHTML.substring(5,7),2)/25) + '%' +")",
+      ma: 'hsl(2,100%,' + (100 - Math.pow(document.getElementById("myTable").rows[18].cells[1].innerHTML.substring(5,7),2)/25) + '%' +")",
+      mi: 'hsl(2,100%,' + (100 - Math.pow(document.getElementById("myTable").rows[19].cells[1].innerHTML.substring(5,7),2)/25) + '%' +")",
+      mn: 'hsl(2,100%,' + (100 - Math.pow(document.getElementById("myTable").rows[20].cells[1].innerHTML.substring(5,7),2)/25) + '%' +")",
+      mo: 'hsl(2,100%,' + (100 - Math.pow(document.getElementById("myTable").rows[21].cells[1].innerHTML.substring(5,7),2)/25) + '%' +")",
+      ne: 'hsl(2,100%,' + (100 - Math.pow(document.getElementById("myTable").rows[22].cells[1].innerHTML.substring(5,7),2)/25) + '%' +")",
+      nv: 'hsl(2,100%,' + (100 - Math.pow(document.getElementById("myTable").rows[23].cells[1].innerHTML.substring(5,7),2)/25) + '%' +")",
+      nh: 'hsl(2,100%,' + (100 - Math.pow(document.getElementById("myTable").rows[24].cells[1].innerHTML.substring(5,7),2)/25) + '%' +")",
+      nj: 'hsl(2,100%,' + (100 - Math.pow(document.getElementById("myTable").rows[25].cells[1].innerHTML.substring(5,7),2)/25) + '%' +")",
+      nm: 'hsl(2,100%,' + (100 - Math.pow(document.getElementById("myTable").rows[26].cells[1].innerHTML.substring(5,7),2)/25) + '%' +")",
+      ny: 'hsl(2,100%,' + (100 - Math.pow(document.getElementById("myTable").rows[27].cells[1].innerHTML.substring(5,7),2)/25) + '%' +")",
+      nc: 'hsl(2,100%,' + (100 - Math.pow(document.getElementById("myTable").rows[28].cells[1].innerHTML.substring(5,7),2)/25) + '%' +")",
+      oh: 'hsl(2,100%,' + (100 - Math.pow(document.getElementById("myTable").rows[29].cells[1].innerHTML.substring(5,7),2)/25) + '%' +")",
+      ok: 'hsl(2,100%,' + (100 - Math.pow(document.getElementById("myTable").rows[30].cells[1].innerHTML.substring(5,7),2)/25) + '%' +")",
+      or: 'hsl(2,100%,' + (100 - Math.pow(document.getElementById("myTable").rows[31].cells[1].innerHTML.substring(5,7),2)/25) + '%' +")",
+      pa: 'hsl(2,100%,' + (100 - Math.pow(document.getElementById("myTable").rows[32].cells[1].innerHTML.substring(5,7),2)/25) + '%' +")",
+      ri: 'hsl(2,100%,' + (100 - Math.pow(document.getElementById("myTable").rows[33].cells[1].innerHTML.substring(5,7),2)/25) + '%' +")",
+      sc: 'hsl(2,100%,' + (100 - Math.pow(document.getElementById("myTable").rows[34].cells[1].innerHTML.substring(5,7),2)/25) + '%' +")",
+      ut: 'hsl(2,100%,' + (100 - Math.pow(document.getElementById("myTable").rows[35].cells[1].innerHTML.substring(5,7),2)/25) + '%' +")",
+      vt: 'hsl(2,100%,' + (100 - Math.pow(document.getElementById("myTable").rows[36].cells[1].innerHTML.substring(5,7),2)/25) + '%' +")",
+      va: 'hsl(2,100%,' + (100 - Math.pow(document.getElementById("myTable").rows[37].cells[1].innerHTML.substring(5,7),2)/25) + '%' +")",
+      wa: 'hsl(2,100%,' + (100 - Math.pow(document.getElementById("myTable").rows[38].cells[1].innerHTML.substring(5,7),2)/25) + '%' +")",
+      wv: 'hsl(2,100%,' + (100 - Math.pow(document.getElementById("myTable").rows[39].cells[1].innerHTML.substring(5,7),2)/25) + '%' +")",
+      wi: 'hsl(2,100%,' + (100 - Math.pow(document.getElementById("myTable").rows[40].cells[1].innerHTML.substring(5,7),2)/25) + '%' +")",
+    }
+  });
+
 });
 
-_(uState.features)
-    .keyBy('properties.name')
-    .merge(_.keyBy(response.data, 'State'))
-    .values()
-    .value();
 
-let max = d3.max(response.data, function (d, i) {
-    return d.unemploymentRate;
-});
-let min = d3.min(response.data, function (d, i) {
-    return d.unemploymentRate;
-});
-
-
-const colorScale = d3.scaleLinear()
-    .domain([min, max])
-     //I goofed, so this has to be in reverse order
-    .range(["#00806D", "#00BC4C", "#00F200", "#85FB44"].reverse());
-
-    let numbers= [2,3,9,12,20,15,25,4,31,6,7,12,18]
-    console.log(d3.min(numbers));
-    //2
-    console.log(d3.max(numbers))
-
-    svg.selectAll('path')
-        .data(uState.features)
-        .enter()
-        .append('path')
-        .attr("d", path)
-        .attr('class', 'state')
-        .style('fill', function (d, i) {
-            let uRate = d.unemploymentRate;
-            return uRate ? colorScale(uRate) : "#ccc";
-        })
 
 </script>
 
-  <section id="data info">
-    <table>
+<section id="data info">
+
+  <table id="myTable">
       <tr>
         <th>State</th>
         <th>Percent</th>
@@ -260,241 +283,295 @@ const colorScale = d3.scaleLinear()
     <tr>
       
       <td>  <a href=micro1.html> Alabama</a> </td>
+
       <td>0.0002907196201</td>
     </tr>
     
     <tr>
       
       <td>  <a href=micro2.html> Alaska</a> </td>
+
       <td>0.0003783368907</td>
     </tr>
     
     <tr>
       
       <td>  <a href=micro3.html> Arizona</a> </td>
+
       <td>0.0002753900569</td>
     </tr>
     
     <tr>
       
       <td>  <a href=micro4.html> California</a> </td>
+
       <td>0.0001649642904</td>
     </tr>
     
     <tr>
       
       <td>  <a href=micro5.html> Colorado</a> </td>
+
       <td>0.000279866928</td>
     </tr>
     
     <tr>
       
       <td>  <a href=micro6.html> Connecticut</a> </td>
+
       <td>0.0001449898045</td>
     </tr>
     
     <tr>
       
       <td>  <a href=micro7.html> Delaware</a> </td>
+
       <td>0.0001674988187</td>
     </tr>
     
     <tr>
       
       <td>  <a href=micro8.html> District of Columbia</a> </td>
+
       <td>0.0002249254401</td>
     </tr>
     
     <tr>
       
       <td>  <a href=micro9.html> Georgia</a> </td>
+
       <td>0.0002399359284</td>
     </tr>
     
     <tr>
       
       <td>  <a href=micro10.html> Illinois</a> </td>
+
       <td>0.0001962998751</td>
     </tr>
     
     <tr>
       
       <td>  <a href=micro11.html> Indiana</a> </td>
+
       <td>0.0002538898647</td>
     </tr>
     
     <tr>
       
       <td>  <a href=micro12.html> Iowa</a> </td>
+
       <td>0.0001948579676</td>
     </tr>
     
     <tr>
       
       <td>  <a href=micro13.html> Kansas</a> </td>
+
       <td>0.0002534771536</td>
     </tr>
     
     <tr>
       
       <td>  <a href=micro14.html> Kentucky</a> </td>
+
       <td>0.0002495299214</td>
     </tr>
     
     <tr>
       
       <td>  <a href=micro15.html> Louisiana</a> </td>
+
       <td>0.0003010743828</td>
     </tr>
     
     <tr>
       
       <td>  <a href=micro16.html> Maine</a> </td>
+
       <td>0.0002241475668</td>
     </tr>
     
     <tr>
       
       <td>  <a href=micro17.html> Maryland</a> </td>
+
       <td>0.0004656844817</td>
     </tr>
     
     <tr>
       
       <td>  <a href=micro18.html> Massachusetts</a> </td>
+
       <td>0.0001316981132</td>
     </tr>
     
     <tr>
       
       <td>  <a href=micro19.html> Michigan</a> </td>
+
       <td>0.0002613067438</td>
     </tr>
     
     <tr>
       
       <td>  <a href=micro20.html> Minnesota</a> </td>
+
       <td>0.0001541565507</td>
     </tr>
     
     <tr>
       
       <td>  <a href=micro21.html> Missouri</a> </td>
+
       <td>0.0003143744536</td>
     </tr>
     
     <tr>
       
       <td>  <a href=micro22.html> Nebraska</a> </td>
+
       <td>0.0001606827045</td>
     </tr>
     
     <tr>
       
       <td>  <a href=micro23.html> Nevada</a> </td>
+
       <td>0.0002995657779</td>
     </tr>
     
     <tr>
       
       <td>  <a href=micro24.html> New Hampshire</a> </td>
+
       <td>0.0002167409533</td>
     </tr>
     
     <tr>
       
       <td>  <a href=micro25.html> New Jersey</a> </td>
+
       <td>0.0001225792837</td>
     </tr>
     
     <tr>
       
       <td>  <a href=micro26.html> New Mexico</a> </td>
+
       <td>0.0003436052205</td>
     </tr>
     
     <tr>
       
       <td>  <a href=micro27.html> New York</a> </td>
+
       <td>0.0001327383204</td>
     </tr>
     
     <tr>
       
       <td>  <a href=micro28.html> North Carolina</a> </td>
+
       <td>0.0002141834928</td>
     </tr>
     
     <tr>
       
       <td>  <a href=micro29.html> Ohio</a> </td>
+
       <td>0.0002361960477</td>
     </tr>
     
     <tr>
       
       <td>  <a href=micro30.html> Oklahoma</a> </td>
+
       <td>0.000282520335</td>
     </tr>
     
     <tr>
       
       <td>  <a href=micro31.html> Oregon</a> </td>
+
       <td>0.0002367138957</td>
     </tr>
     
     <tr>
       
       <td>  <a href=micro32.html> Pennsylvania</a> </td>
+
       <td>0.0002332589438</td>
     </tr>
     
     <tr>
       
       <td>  <a href=micro33.html> Rhode Island</a> </td>
+
       <td>0.0001295734951</td>
     </tr>
     
     <tr>
       
       <td>  <a href=micro34.html> South Carolina</a> </td>
+
       <td>0.0002492069927</td>
     </tr>
     
     <tr>
       
       <td>  <a href=micro35.html> Utah</a> </td>
+
       <td>0.000247065504</td>
     </tr>
     
     <tr>
       
       <td>  <a href=micro36.html> Vermont</a> </td>
+
       <td>0.0002602590775</td>
     </tr>
     
     <tr>
       
       <td>  <a href=micro37.html> Virginia</a> </td>
+
       <td>0.0001950060374</td>
     </tr>
     
     <tr>
       
       <td>  <a href=micro38.html> Washington</a> </td>
+
       <td>0.0002083446408</td>
     </tr>
     
     <tr>
       
       <td>  <a href=micro39.html> West Virginia</a> </td>
+
       <td>0.0003029074687</td>
     </tr>
     
     <tr>
       
       <td>  <a href=micro40.html> Wisconsin</a> </td>
+
       <td>0.0001926527736</td>
+    </tr>
+    
+    <tr>
+      
+      <td>  <a href=micro41.html> TOTAL</a> </td>
+
+      <td>0.009430925818</td>
+    </tr>
+    
+    <tr>
+      
+      <td>  <a href=micro42.html> </a> </td>
+
+      <td></td>
     </tr>
     
 
