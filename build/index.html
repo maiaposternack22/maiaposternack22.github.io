@@ -5,6 +5,7 @@
   <meta charset="utf-8" />
   <title> MACRO DATA </title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  <link rel="stylesheet" type = "text/css" href="style.css">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="author" content="Maia and Ryan">
   <meta content="text/html" http-equiv="Content-type" />
@@ -18,7 +19,7 @@
 
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
 <div class="container-fluid">
-  <a class="navbar-brand" href="index.html">Ryan and Maia's Website</a>
+  <a class="navbar-brand" href="index.html">SafeStates</a>
   <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -169,12 +170,26 @@
 
   <header>
 
-    <h1>MACRO DATA</h1>
-    <h2>This is our macro data </h2>
+    <h1>What states are safest?</h1>
+    <div id="opening">
+    <p>In our project, we explored deaths by causes such as guns, stabs, poisonings, and suffocatio (aka deaths by unnatural causes) in order to understand in which states you are least likely to meet an untimely death.
+      The map below depicts the ratio of deaths by unnatural causes: population for each state, with darker colores being higher ratios.
+      Note that Maryland has the highest "ratio" of deaths to population and that Rhode Island has the lowest ratio</p>
+    </div>
+    <ul>
+
+    <li> We found it really interesting that New York had such a low ratio. This was because even though it had a relatively high number of deaths compared to other states, the deaths were balanced out by its large populatoion.
+    We wonder if this lower death rate has to do with gun control, as unlike most states, guns were not the most common method of death in New York. </li>
+    <br>
+    <li>  It is also interesting that Maryland has such a high death rate, specifically from poisonings. Upon further research, this is due to lead poisoning, and Maryland is making laws to help prevent future deaths. </li>
+    <br>
+    <li> It makes sense that Rhode Island has such a low ratio as we believe it is known to be a pretty safe place </li>
+</ul>
+  <div id="click">  <p> Click a state for a more detailed summary! </p> </div>
+
   </header>
 
-<div id="vmap" style="width: 600px; height: 400px;"></div>
-
+<div id="vmap" style="width: 600px; height: 400px;" >
 <script>
 
 let index = [
@@ -267,15 +282,35 @@ jQuery(document).ready(function() {
 });
 
 
-
 </script>
+
+
+</div>
+<div id="gradient">
+<img src="pictures/key.png" alt="key" width="auto" height="300" style = "position:relative; left:600px; top:-350px;">
+</div>
+<div id="footer">
+
+
+
+<footer class="bg-light text-center text-lg-start">
+  <!-- Copyright -->
+  <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+    © 2021 Copyright:
+    We recieved our data from <a href="https://wisqars.cdc.gov/nvdrs/">  cdc.gov </a> With it, we explored deaths by unnatural causes on both a national and state level.
+
+  </div>
+  <!-- Copyright -->
+</footer>
+
+
 
 <section id="data info">
 
   <table id="myTable">
       <tr>
         <th>State</th>
-        <th>Percent</th>
+        <th>Ratio</th>
 
 
       </tr>
@@ -577,12 +612,7 @@ jQuery(document).ready(function() {
 
     </table>
   </section>
-
-    <footer>
-
-GO RYAN AND MAIA!!! (this is our footer)
-</footer>
-
+</div>
 
 
 
