@@ -10,14 +10,14 @@
   <meta name="author" content="Maia and Ryan">
   <meta content="text/html" http-equiv="Content-type" />
   <meta content="width=device-width, initial-scale=1" name="viewport" />
-  <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+  <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
   <script type="text/javascript" src="dist/jquery.vmap.js"></script>
   <script type="text/javascript" src="dist/maps/jquery.vmap.usa.js" charset="utf-8"></script>
 </head>
 
 <body>
-
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+<div id="navbar">
+  <nav class="navbar navbar-expand-lg navbar-light">
 <div class="container-fluid">
   <a class="navbar-brand" href="index.html">SafeStates</a>
   <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -164,7 +164,7 @@
 </div>
 </nav>
 
-
+</div>
   <header>
 
     <h1>What states are safest?</h1>
@@ -186,7 +186,7 @@
 
   </header>
 
-<div id="vmap" style="width: 600px; height: 400px;" >
+<div id="vmap">
 <script>
 
 let index = [
@@ -215,9 +215,9 @@ let index = [
 
 jQuery(document).ready(function() {
   jQuery('#vmap').vectorMap({
-    backgroundColor: '#FFFFFF',
+    backgroundColor: '#d1d5d9',
     selectedColor: null,
-    color: '#a8a8a8',
+    color: '#e9edf2',
     map: 'usa_en',
     borderWidth: 2,
     borderColor: 'black',
